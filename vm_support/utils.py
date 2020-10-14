@@ -108,6 +108,24 @@ def _set_earth_data_authentication_to_file(username: str, password: str, data_st
         yaml.dump(data_store_lists, file, default_flow_style=False)
 
 
+def set_scihub_authentication(username: str, password: str):
+    data_stores_file = _get_data_stores_file()
+    aux_data_provider_file = _get_aux_data_provider_file()
+    _set_scihub_authentication_to_data_stores_file(username, password, data_stores_file)
+
+
+def _set_scihub_authentication_to_data_stores_file(username: str, password: str, data_stores_file: str):
+    stream = open(data_stores_file, 'r')
+    data_store_lists = yaml.safe_load(stream)
+    for data_store_entry in data_store_lists:
+        if data_store_entry['DataStore']['FileSystem']['type'] == 'SciHubFileSystem':
+            data_store_entry['DataStore']['FileSystem']['parameters']['username'] = username
+            data_store_entry['DataStore']['FileSystem']['parameters']['password'] = password
+    stream.close()
+    with open(data_stores_file, 'w') as file:
+        yaml.dump(data_store_lists, file, default_flow_style=False)
+
+
 def set_mundi_authentication(access_key_id: str, secret_access_key: str):
     data_stores_file = _get_data_stores_file()
     aux_data_provider_file = _get_aux_data_provider_file()

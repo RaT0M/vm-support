@@ -129,3 +129,19 @@
       type: MundiMetaInfoProvider
       parameters:
         path_to_json_file: /home/{user}/.multiply/mundi_store.json
+- DataStore:
+    FileSystem:
+      parameters:
+        password: PASS
+        path: /data/extra_disk/
+        pattern: /dt/yy/mm/dd/
+        temp_dir: /data/extra_disk/temp/scihub/
+        username: USER
+      type: SciHubFileSystem
+    Id: SciHub
+    MetaInfoProvider:
+      parameters:
+        password: PASS
+        path_to_json_file: /home/{user}/.multiply/scihub_store.json
+        username: USER
+      type: SciHubMetaInfoProvider
