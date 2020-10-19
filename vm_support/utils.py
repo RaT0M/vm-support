@@ -121,6 +121,8 @@ def _set_scihub_authentication_to_data_stores_file(username: str, password: str,
         if data_store_entry['DataStore']['FileSystem']['type'] == 'SciHubFileSystem':
             data_store_entry['DataStore']['FileSystem']['parameters']['username'] = username
             data_store_entry['DataStore']['FileSystem']['parameters']['password'] = password
+            data_store_entry['DataStore']['MetaInfoProvider']['parameters']['username'] = username
+            data_store_entry['DataStore']['MetaInfoProvider']['parameters']['password'] = password
     stream.close()
     with open(data_stores_file, 'w') as file:
         yaml.dump(data_store_lists, file, default_flow_style=False)
